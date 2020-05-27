@@ -17,7 +17,7 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isPending: false,
-                recipes: action.payload
+                recipes: action.payload,
             }
         case RecipeActionTypes.FETCH_RECIPES_FAILURE:
             return {
