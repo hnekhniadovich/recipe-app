@@ -1,7 +1,19 @@
-export const RecipeActionTypes = {
+export const RecipesActionTypes = {
     FETCH_RECIPES_START: 'FETCH_RECIPES_START',
     FETCH_RECIPES_SUCCESS: 'FETCH_RECIPES_SUCCESS',
     FETCH_RECIPES_FAILURE: 'FETCH_RECIPES_FAILURE',
+};
+
+export const RecipeInfoActionTypes = {
+    FETCH_RECIPE_INFO_START: 'FETCH_RECIPE_INFO_START',
+    FETCH_RECIPE_INFO_SUCCESS: 'FETCH_RECIPE_INFO_SUCCESS',
+    FETCH_RECIPE_INFO_FAILURE: 'FETCH_RECIPE_INFO_FAILURE',
+};
+
+export const RecipeIngActionTypes = {
+    FETCH_RECIPE_ING_START: 'FETCH_RECIPE_ING_START',
+    FETCH_RECIPE_ING_SUCCESS: 'FETCH_RECIPE_ING_SUCCESS',
+    FETCH_RECIPE_ING_FAILURE: 'FETCH_RECIPE_ING_FAILURE',
 };
 
 export const SearchActionTypes = {
@@ -9,7 +21,8 @@ export const SearchActionTypes = {
 };
 
 export default {
-    RecipeActionTypes,
-    SearchActionTypes
+    RecipesActionTypes,
+    SearchActionTypes,
+    RecipeInfoActionTypes
 }
 
