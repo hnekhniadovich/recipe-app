@@ -4,15 +4,14 @@ class RecipesListItem extends React.Component {
 
     handleFetchRecipeInfo = event => {
         event.preventDefault();
-        const { recipe, fetchRecipeInfo, fetchRecipeIng } = this.props;
-        fetchRecipeInfo(recipe.id);
-        fetchRecipeIng(recipe.id);
+        const { recipe, handleCurrentRecipe } = this.props;
+        
+        handleCurrentRecipe(recipe.id);
     }
 
     render() {
-        
         const { id, title } = this.props.recipe;
-
+       
         return (
             <li>
                 <a className="results__link results__link--active" href={'/' + id} onClick={this.handleFetchRecipeInfo}>

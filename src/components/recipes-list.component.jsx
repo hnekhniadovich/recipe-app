@@ -1,17 +1,11 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
-
-import { fetchRecipeInfoStart, fetchRecipeIngStart } from '../actions/recipe.actions';
-
 import RecipesListItem from './recipes-list-item.component';
 
-const RecipesList = ( {recipes, fetchRecipeInfo, fetchRecipeIng } ) => {
+const RecipesList = ( {recipes, handleCurrentRecipe } ) => {
 
-    console.log(recipes);
-        
     return (
-        <div>
+        <>
         {
             recipes ?
 
@@ -23,8 +17,8 @@ const RecipesList = ( {recipes, fetchRecipeInfo, fetchRecipeIng } ) => {
                         <RecipesListItem 
                             key={recipe.id} 
                             recipe={recipe} 
-                            fetchRecipeInfo={fetchRecipeInfo} 
-                            fetchRecipeIng={fetchRecipeIng} />
+                            handleCurrentRecipe={handleCurrentRecipe}
+                        />
                     )
                 })}
             </ul>
@@ -50,21 +44,8 @@ const RecipesList = ( {recipes, fetchRecipeInfo, fetchRecipeIng } ) => {
                 </button>
             </div>
 
-        </div>
+        </>
     )
 };
     
-const mapStateToProps = (state) => {
-    return {
-        recipes: state.recipes.recipes
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchRecipeInfo: (id) => dispatch(fetchRecipeInfoStart(id)),
-        fetchRecipeIng: (id) => dispatch(fetchRecipeIngStart(id))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RecipesList);
+export default RecipesList;

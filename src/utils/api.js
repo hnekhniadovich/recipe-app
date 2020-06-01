@@ -10,14 +10,14 @@ export const getRecipes = (searchField) => {
 
 export const getRecipeInfo = (id) => {
     return axios.get(`${proxy}https://api.spoonacular.com/recipes/${id}/information?apiKey=${key}`)
-        // .then(response => response.data)
-        .then(response => { console.log(response.data) })  
+        .then(response => response.data)
+        //.then(response => { console.log(response.data) })  
 };
 
 export const getRecipeIngredients = (id) => {
     return axios.get(`${proxy}https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${key}`)
-        // .then(response => response.data)
-        .then(response => { console.log(response.data) })  
+        .then(response => response.data)
+        //.then(response => { console.log(response.data) })  
 };
 
 
