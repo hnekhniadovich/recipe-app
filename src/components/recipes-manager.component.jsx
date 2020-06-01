@@ -16,8 +16,6 @@ class RecipesManager extends React.Component {
     
     handleCurrentRecipe = (id) => {
         this.setState({ active: id});
-        console.log('state in recipes manager');
-        console.log(this.state);
     }
 
     render() {

@@ -1,7 +1,5 @@
 import React from 'react';
 import Header from './components/header.component';
-import RecipesList from './components/recipes-list.component';
-import Recipe from './components/recipe.component';
 import RecipesManager from './components/recipes-manager.component';
 import './style.css';
 
