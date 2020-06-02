@@ -19,22 +19,23 @@ class RecipesManager extends React.Component {
     }
 
     render() {
-        const { recipes } = this.props;
+        const { recipes, isPending } = this.props;
 
         return(
             <>
                 <div className="results">
                     <RecipesList 
                         recipes={recipes} 
+                        isPending={isPending}
                         handleCurrentRecipe={this.handleCurrentRecipe}
                     />
                 </div>
 
                 {
-                    recipes ? 
-
-                    <Recipe recipes={recipes} id={this.state.active}/> :
-
+                    recipes 
+                    ? 
+                    <Recipe recipes={recipes} id={this.state.active} isPending={isPending}/> 
+                    :
                     null
                 }
             </>
@@ -44,7 +45,8 @@ class RecipesManager extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        recipes: state.recipes.recipes
+        recipes: state.recipes.recipes,
+        isPending: state.recipes.isPending
     }
 };
 

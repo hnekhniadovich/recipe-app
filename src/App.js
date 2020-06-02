@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './components/header.component';
 import RecipesManager from './components/recipes-manager.component';
+
 import './style.css';
 
 function App() {
@@ -8,7 +9,6 @@ function App() {
     <div className='container'>
       <Header />
       <RecipesManager />
-
 
       <div className="shopping">
         <h2 className="heading-2">My Shopping List</h2>
