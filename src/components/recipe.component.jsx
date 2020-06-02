@@ -7,6 +7,7 @@ import { fetchRecipeInfoStart, fetchRecipeIngStart } from '../actions/recipe.act
 
 import RecipeIngredients from './recipe-ingredients.component';
 import Spinner from './spinner.component';
+import icons from '../assets/icons.svg';
 
 
 class Recipe extends React.Component {
@@ -40,14 +41,14 @@ class Recipe extends React.Component {
                         <div className="recipe__details">
                             <div className="recipe__info">
                                 <svg className="recipe__info-icon">
-                                    <use xlinkHref="../assets/icons.svg#icon-stopwatch"></use>
+                                    <use href={icons + '#icon-stopwatch'}></use>
                                 </svg>
                                     <span className="recipe__info-data recipe__info-data--minutes">{info.readyInMinutes}</span>
                                 <span className="recipe__info-text"> minutes</span>
                             </div>
                             <div className="recipe__info">
                                 <svg className="recipe__info-icon">
-                                    <use href="../assets/icons.svg#icon-man"></use>
+                                    <use href={icons + '#icon-man'}></use>
                                 </svg>
                                     <span className="recipe__info-data recipe__info-data--people">{info.servings}</span>
                                 <span className="recipe__info-text"> servings</span>
@@ -55,19 +56,19 @@ class Recipe extends React.Component {
                                 <div className="recipe__info-buttons">
                                 <button className="btn-tiny">
                                     <svg>
-                                        <use href="../assets/icons.svg#icon-circle-with-minus"></use>
+                                        <use href={icons + '#icon-circle-with-minus'}></use>
                                     </svg>
                                 </button>
                                 <button className="btn-tiny">
                                     <svg>
-                                        <use href="../assets/icons.svg#icon-circle-with-plus"></use>
+                                        <use href={icons + '#icon-circle-with-plus'}></use>
                                     </svg>
                                 </button>
                                 </div>
                             </div>
                             <button className="recipe__love">
                                 <svg className="header__likes">
-                                    <use href="../assets/icons.svg#icon-heart-outlined"></use>
+                                    <use href={icons + '#icon-heart-outlined'}></use>
                                 </svg>
                             </button>
                         </div>
@@ -97,7 +98,7 @@ class Recipe extends React.Component {
                             <a className="btn-small recipe__btn" href={info.sourceUrl} target="_blank">
                                 <span>Directions</span>
                                 <svg className="search__icon">
-                                    <use href="../assets/icons.svg#icon-triangle-right"></use>
+                                    <use href={icons + '#icon-triangle-right'}></use>
                                 </svg>
                             </a>
                         </div>

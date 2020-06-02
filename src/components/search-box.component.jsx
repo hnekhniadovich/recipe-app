@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import { setSearchField } from '../actions/search.actions';
 import { fetchRecipesStart } from '../actions/recipe.actions';
 
-class SearchBox extends React.Component {
+import icons from '../assets/icons.svg';
 
+class SearchBox extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-
         const { searchField, fetchRecipesStart } = this.props;
-    
         fetchRecipesStart(searchField);
     }
     
@@ -29,13 +28,12 @@ class SearchBox extends React.Component {
                 />
                 <button className="btn search__btn">
                     <svg className="search__icon">
-                        <use href="img/icons.svg#icon-magnifying-glass"></use>
+                        <use href={icons + '#icon-magnifying-glass'}></use>
                     </svg>
                     <span>Search</span>
                 </button>
             </form>
-        );
-            
+        ); 
     }
 };
 

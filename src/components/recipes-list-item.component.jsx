@@ -5,7 +5,6 @@ class RecipesListItem extends React.Component {
     handleFetchRecipeInfo = event => {
         event.preventDefault();
         const { recipe, handleCurrentRecipe } = this.props;
-        
         handleCurrentRecipe(recipe.id);
     }
 
@@ -20,13 +19,11 @@ class RecipesListItem extends React.Component {
                     </figure>
                     <div className="results__data">
                     <h4 className="results__name">{title}</h4>
-                    {/* <p className="results__author">The Pioneer Woman</p> */}
                     </div>
                 </a>
             </li>
         )
     }  
 };
-
 
 export default RecipesListItem;

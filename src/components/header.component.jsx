@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../assets/logo.png';
 import SearchBox from './search-box.component';
+import icons from '../assets/icons.svg';
 
 const Header = () => (
     <header className='header'>
@@ -10,7 +11,7 @@ const Header = () => (
         <div className="likes">
             <div className="likes__field">
                 <svg className="likes__icon">
-                    <use href="img/icons.svg#icon-heart"></use>
+                    <use href={icons + '#icon-heart'}></use>
                 </svg>
             </div>
             <div className="likes__panel">

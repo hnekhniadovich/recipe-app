@@ -2,6 +2,7 @@ import React from 'react';
 
 import RecipesListItem from './recipes-list-item.component';
 import Spinner from './spinner.component';
+import icons from '../assets/icons.svg';
 
 class RecipesList extends React.Component {
 
@@ -9,7 +10,6 @@ class RecipesList extends React.Component {
 
         console.log("recipe list is rendering!");
         
-
         const {recipes, isPending, handleCurrentRecipe } = this.props;
 
         let content;
@@ -44,14 +44,14 @@ class RecipesList extends React.Component {
                 <div className="results__pages">
                     <button className="btn-inline results__btn--prev">
                         <svg className="search__icon">
-                            <use href="img/icons.svg#icon-triangle-left"></use>
+                            <use href={icons + '#icon-triangle-left'}></use>
                         </svg>
                         <span>Page 1</span>
                     </button>
                     <button className="btn-inline results__btn--next">
                         <span>Page 3</span>
                         <svg className="search__icon">
-                            <use href="img/icons.svg#icon-triangle-right"></use>
+                            <use href={icons + '#icon-triangle-right'}></use>
                         </svg>
                     </button>
                 </div>
