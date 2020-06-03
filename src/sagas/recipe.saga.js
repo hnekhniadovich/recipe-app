@@ -3,13 +3,12 @@ import {
     fetchRecipesSuccess, 
     fetchRecipesFailure, 
     fetchRecipeInfoSuccess, 
-    fetchRecipeInfoFailure,
-    fetchRecipeIngSuccess,
-    fetchRecipeIngFailure
+    fetchRecipeInfoFailure
 } from '../actions/recipe.actions';
 
-import { RecipesActionTypes, RecipeInfoActionTypes, RecipeIngActionTypes } from '../actions/recipe.types';
+import { RecipesActionTypes, RecipeInfoActionTypes } from '../actions/recipe.types';
 import { getRecipes, getRecipeInfo, getRecipeIngredients } from '../utils/api';
+import { addAmountPerServing } from '../utils/utils';
 
 export function* fetchRecipesAsync(action) { 
     try {
@@ -29,8 +28,13 @@ export function* fetchRecipes() {
 
 export function* fetchRecipeInfoAsync(action) { 
     try {
-        const recipeInfo = yield getRecipeInfo(action.payload);
-        yield put(fetchRecipeInfoSuccess(recipeInfo));
+        const recipeInformation = yield getRecipeInfo(action.payload);
+        const recipeIngredients = yield getRecipeIngredients(action.payload);
+
+        let recipeInfo = {...recipeInformation, ...recipeIngredients};
+        let newRecipeInfo = { ...recipeInfo, ingredients: addAmountPerServing(recipeInfo.ingredients, recipeInfo.servings) }
+
+        yield put(fetchRecipeInfoSuccess(newRecipeInfo));
     } catch (error) {
         yield put(fetchRecipeInfoFailure(error.message));
     }
@@ -43,26 +47,9 @@ export function* fetchRecipeInfo() {
     )
 };
 
-export function* fetchRecipeIngAsync(action) { 
-    try {
-        const recipeIng = yield getRecipeIngredients(action.payload);
-        yield put(fetchRecipeIngSuccess(recipeIng));
-    } catch (error) {
-        yield put(fetchRecipeIngFailure(error.message));
-    }
-};
-
-export function* fetchRecipeIng() {
-    yield takeLatest(
-        RecipeIngActionTypes.FETCH_RECIPE_ING_START,
-        fetchRecipeIngAsync
-    )
-};
-
 export function* recipesSagas() {
     yield all([
         call(fetchRecipes),
-        call(fetchRecipeInfo),
-        call(fetchRecipeIng)
+        call(fetchRecipeInfo)
     ]);
 };

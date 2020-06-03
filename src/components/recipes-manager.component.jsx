@@ -28,6 +28,7 @@ class RecipesManager extends React.Component {
                         recipes={recipes} 
                         isPending={isPending}
                         handleCurrentRecipe={this.handleCurrentRecipe}
+                        current={this.state.active}
                     />
                 </div>
 

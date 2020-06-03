@@ -1,4 +1,5 @@
-import { RecipesActionTypes, RecipeInfoActionTypes, RecipeIngActionTypes } from '../actions/recipe.types';
+import { RecipesActionTypes, RecipeInfoActionTypes } from '../actions/recipe.types';
+import { addIngrPerServing, deleteIngrPerServing } from '../utils/utils'; 
 
 const INITIAL_STATE = {
     recipes: null,
@@ -19,7 +20,7 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isPending: false,
-                recipes: action.payload,
+                recipes: action.payload
             }
         case RecipesActionTypes.FETCH_RECIPES_FAILURE:
             return {
@@ -36,7 +37,7 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isPending: false,
-                recipeInfo: action.payload,
+                recipeInfo: action.payload
             }
         case RecipeInfoActionTypes.FETCH_RECIPE_INFO_FAILURE:
             return {
@@ -44,22 +45,22 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
                 isPending: false,
                 errorMessage: action.payload
             }
-        case RecipeIngActionTypes.FETCH_RECIPE_ING_START:
+        case RecipeInfoActionTypes.ADD_SERVING:
             return {
                 ...state,
-                isPending: true
+                recipeInfo: { ...state.recipeInfo, 
+                    servings: state.recipeInfo.servings + 1,
+                    ingredients: addIngrPerServing(state.recipeInfo.ingredients)    
+                }
             }
-        case RecipeIngActionTypes.FETCH_RECIPE_ING_SUCCESS:
+        case RecipeInfoActionTypes.DELETE_SERVING:
             return {
                 ...state,
-                isPending: false,
-                recipeIng: action.payload,
-            }
-        case RecipeIngActionTypes.FETCH_RECIPE_ING_FAILURE:
-            return {
-                ...state,
-                isPending: false,
-                errorMessage: action.payload
+                recipeInfo: { ...state.recipeInfo, 
+                    servings: state.recipeInfo.servings > 1 ? state.recipeInfo.servings - 1 : 1,
+                    ingredients: state.recipeInfo.servings > 1 ? 
+                        deleteIngrPerServing(state.recipeInfo.ingredients) : 
+                        [ ...state.recipeInfo.ingredients]  }
             }
         default:
             return state;

@@ -8,9 +8,9 @@ class RecipesList extends React.Component {
 
     render() {
 
-        console.log("recipe list is rendering!");
+        //console.log("recipe list is rendering!");
         
-        const {recipes, isPending, handleCurrentRecipe } = this.props;
+        const {recipes, isPending, handleCurrentRecipe, current } = this.props;
 
         let content;
 
@@ -27,6 +27,7 @@ class RecipesList extends React.Component {
                                     key={recipe.id} 
                                     recipe={recipe} 
                                     handleCurrentRecipe={handleCurrentRecipe}
+                                    current={current}
                                 />
                             )
                         })}
@@ -60,7 +61,5 @@ class RecipesList extends React.Component {
         )
     }
 }
-
-    
-    
+  
 export default RecipesList;

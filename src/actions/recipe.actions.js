@@ -1,4 +1,4 @@
-import { RecipesActionTypes, RecipeInfoActionTypes, RecipeIngActionTypes } from './recipe.types';
+import { RecipesActionTypes, RecipeInfoActionTypes } from './recipe.types';
 
 export const fetchRecipesStart = (searchField) => ({
     type: RecipesActionTypes.FETCH_RECIPES_START,
@@ -30,17 +30,12 @@ export const fetchRecipeInfoFailure = (errorMessage) => ({
     payload: errorMessage
 });
 
-export const fetchRecipeIngStart = (id) => ({
-    type: RecipeIngActionTypes.FETCH_RECIPE_ING_START,
-    payload: id
+export const addServing  = () => ({
+    type: RecipeInfoActionTypes.ADD_SERVING
 });
 
-export const fetchRecipeIngSuccess = (recipeIng) => ({
-    type: RecipeIngActionTypes.FETCH_RECIPE_ING_SUCCESS,
-    payload: recipeIng
+export const deleteServing  = () => ({
+    type: RecipeInfoActionTypes.DELETE_SERVING
 });
 
-export const fetchRecipeIngFailure = (errorMessage) => ({
-    type: RecipeIngActionTypes.FETCH_RECIPE_ING_FAILURE,
-    payload: errorMessage
-});
+

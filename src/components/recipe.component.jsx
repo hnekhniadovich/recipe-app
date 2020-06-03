@@ -3,7 +3,7 @@ import nextId from "react-id-generator";
 
 import { connect } from 'react-redux';
 
-import { fetchRecipeInfoStart, fetchRecipeIngStart } from '../actions/recipe.actions';
+import { fetchRecipeInfoStart, addServing, deleteServing } from '../actions/recipe.actions';
 
 import RecipeIngredients from './recipe-ingredients.component';
 import Spinner from './spinner.component';
@@ -13,17 +13,19 @@ import icons from '../assets/icons.svg';
 class Recipe extends React.Component {
     
     componentDidUpdate(prevProps) { 
-        const { id, fetchRecipeInfo, fetchRecipeIng } = this.props;
+        const { id, fetchRecipeInfo } = this.props;
        
         if (id !== prevProps.id) {
             fetchRecipeInfo(id);
-            fetchRecipeIng(id);
-          }
+        }
     }
 
     render() {
 
-        const { info, ingredients, isPending } = this.props;
+        const { info, isPending, addServing, deleteServing } = this.props;
+
+        console.log(info);
+        
         let content;
 
         if(isPending) {
@@ -54,16 +56,16 @@ class Recipe extends React.Component {
                                 <span className="recipe__info-text"> servings</span>
 
                                 <div className="recipe__info-buttons">
-                                <button className="btn-tiny">
-                                    <svg>
-                                        <use href={icons + '#icon-circle-with-minus'}></use>
-                                    </svg>
-                                </button>
-                                <button className="btn-tiny">
-                                    <svg>
-                                        <use href={icons + '#icon-circle-with-plus'}></use>
-                                    </svg>
-                                </button>
+                                    <button className="btn-tiny" onClick={deleteServing}>
+                                        <svg>
+                                            <use href={icons + '#icon-circle-with-minus'}></use>
+                                        </svg>
+                                    </button>
+                                    <button className="btn-tiny" onClick={addServing}>
+                                        <svg>
+                                            <use href={icons + '#icon-circle-with-plus'}></use>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                             <button className="recipe__love">
@@ -76,11 +78,11 @@ class Recipe extends React.Component {
                         <div className="recipe__ingredients">
 
                             { 
-                                ingredients 
+                                info
                                 ?
                                 <ul className="recipe__ingredient-list">
                                     {
-                                        ingredients.ingredients.map(item => <RecipeIngredients key={nextId()} item={item} />)
+                                        info.ingredients.map(item => <RecipeIngredients key={nextId()} item={item} />)
                                     }
                                 </ul>
                                 :
@@ -117,8 +119,7 @@ class Recipe extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        info: state.recipes.recipeInfo,
-        ingredients: state.recipes.recipeIng
+        info: state.recipes.recipeInfo
     }
 };
     
@@ -126,7 +127,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchRecipeInfo: (id) => dispatch(fetchRecipeInfoStart(id)),
-        fetchRecipeIng: (id) => dispatch(fetchRecipeIngStart(id))
+        addServing:() => dispatch(addServing()),
+        deleteServing:() => dispatch(deleteServing()),
     }
 };
 
