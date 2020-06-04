@@ -4,7 +4,7 @@ import { addIngrPerServing, deleteIngrPerServing } from '../utils/utils';
 const INITIAL_STATE = {
     recipes: null,
     recipeInfo: null,
-    recipeIng: null,
+    shoppingList: [],
     isPending: false,
     errorMessage: undefined
 }
@@ -61,6 +61,16 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
                     ingredients: state.recipeInfo.servings > 1 ? 
                         deleteIngrPerServing(state.recipeInfo.ingredients) : 
                         [ ...state.recipeInfo.ingredients]  }
+            }
+        case RecipeInfoActionTypes.ADD_TO_SHOPPING_LIST:
+            return {
+                ...state,
+                shoppingList: [...state.shoppingList, ...action.payload]
+            }
+        case RecipeInfoActionTypes.DELETE_SHOPPING_LIST_ITEM:
+            return {
+                ...state,
+                shoppingList: state.shoppingList.filter(item => item.id !== action.payload)
             }
         default:
             return state;

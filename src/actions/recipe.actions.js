@@ -38,4 +38,14 @@ export const deleteServing  = () => ({
     type: RecipeInfoActionTypes.DELETE_SERVING
 });
 
+export const addToShoppingList  = (ingredients) => ({
+    type: RecipeInfoActionTypes.ADD_TO_SHOPPING_LIST,
+    payload: ingredients
+});
+
+export const deleteShoppingListItem  = (id) => ({
+    type: RecipeInfoActionTypes.DELETE_SHOPPING_LIST_ITEM,
+    payload: id
+});
+
 

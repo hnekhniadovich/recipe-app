@@ -1,3 +1,5 @@
+import nextId from "react-id-generator";
+
 export const limitRecipeTitle = (title, limit=17) => {
     const newTitle = [];
     if(title.length > limit) {
@@ -23,20 +25,20 @@ export const formatCount = (count) => {
 
 export const addAmountPerServing = (ingArr, servings) => {
     ingArr.map(
-       ing => Object.assign(ing.amount, {amountPerServing: ing.amount.us.value / servings}) 
+       (ing, i) => Object.assign(ing, {amountPerServing: ing.amount.us.value / servings}, {id: nextId()}) 
     ) 
     return ingArr;
 };
 
 export const addIngrPerServing = (ingredients) => {
     return ingredients.map(ing => {
-        return { ...ing, amount: { ...ing.amount, us: { ...ing.amount.us, value: ing.amount.us.value + ing.amount.amountPerServing } } } 
+        return { ...ing, amount: { ...ing.amount, us: { ...ing.amount.us, value: ing.amount.us.value + ing.amountPerServing } } } 
     });
 };
 
 export const deleteIngrPerServing = (ingredients) => {
     return ingredients.map(ing => {
-        return { ...ing, amount: { ...ing.amount, us: { ...ing.amount.us, value: ing.amount.us.value - ing.amount.amountPerServing } } } 
+        return { ...ing, amount: { ...ing.amount, us: { ...ing.amount.us, value: ing.amount.us.value - ing.amountPerServing } } } 
     });
 };
 

@@ -3,7 +3,7 @@ import nextId from "react-id-generator";
 
 import { connect } from 'react-redux';
 
-import { fetchRecipeInfoStart, addServing, deleteServing } from '../actions/recipe.actions';
+import { fetchRecipeInfoStart, addServing, deleteServing, addToShoppingList } from '../actions/recipe.actions';
 
 import RecipeIngredients from './recipe-ingredients.component';
 import Spinner from './spinner.component';
@@ -22,9 +22,9 @@ class Recipe extends React.Component {
 
     render() {
 
-        const { info, isPending, addServing, deleteServing } = this.props;
+        const { info, isPending, addServing, deleteServing, addToShoppingList } = this.props;
 
-        console.log(info);
+        //console.log(info);
         
         let content;
 
@@ -33,7 +33,7 @@ class Recipe extends React.Component {
         } else {
             if(info) {
                 content = (
-                    <div className="recipe">
+                    <>
                         <figure className="recipe__fig">
                             <img src={info.image} alt={info.title} className="recipe__img" />
                             <h1 className="recipe__title">
@@ -80,11 +80,19 @@ class Recipe extends React.Component {
                             { 
                                 info
                                 ?
-                                <ul className="recipe__ingredient-list">
-                                    {
-                                        info.ingredients.map(item => <RecipeIngredients key={nextId()} item={item} />)
-                                    }
-                                </ul>
+                                <>
+                                    <ul className="recipe__ingredient-list">
+                                        {
+                                            info.ingredients.map(item => <RecipeIngredients key={nextId()} item={item} />)
+                                        }
+                                    </ul>
+                                    <button className="btn-small recipe__btn" onClick={() => addToShoppingList(info.ingredients)}>
+                                        <svg className="search__icon">
+                                            <use href={icons + '#icon-shopping-cart'}></use>
+                                        </svg>
+                                        <span>Add to shopping list</span>
+                                    </button>
+                                </>
                                 :
                                 null
                             }
@@ -104,7 +112,7 @@ class Recipe extends React.Component {
                                 </svg>
                             </a>
                         </div>
-                    </div>
+                    </>
                 )
             } else {
                 content = null
@@ -129,6 +137,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchRecipeInfo: (id) => dispatch(fetchRecipeInfoStart(id)),
         addServing:() => dispatch(addServing()),
         deleteServing:() => dispatch(deleteServing()),
+        addToShoppingList: (ingredients) => dispatch(addToShoppingList(ingredients))
     }
 };
 

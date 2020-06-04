@@ -32,7 +32,7 @@ export function* fetchRecipeInfoAsync(action) {
         const recipeIngredients = yield getRecipeIngredients(action.payload);
 
         let recipeInfo = {...recipeInformation, ...recipeIngredients};
-        let newRecipeInfo = { ...recipeInfo, ingredients: addAmountPerServing(recipeInfo.ingredients, recipeInfo.servings) }
+        let newRecipeInfo = { ...recipeInfo, ingredients: addAmountPerServing(recipeInfo.ingredients, recipeInfo.servings )};
 
         yield put(fetchRecipeInfoSuccess(newRecipeInfo));
     } catch (error) {
