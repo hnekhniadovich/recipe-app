@@ -1,4 +1,4 @@
-import { RecipesActionTypes, RecipeInfoActionTypes } from './recipe.types';
+import { RecipesActionTypes, RecipeActionTypes } from './recipe.types';
 
 export const fetchRecipesStart = (searchField) => ({
     type: RecipesActionTypes.FETCH_RECIPES_START,
@@ -15,36 +15,46 @@ export const fetchRecipesFailure = (errorMessage) => ({
     payload: errorMessage
 });
 
-export const fetchRecipeInfoStart = (id) => ({
-    type: RecipeInfoActionTypes.FETCH_RECIPE_INFO_START,
+export const fetchRecipeStart = (id) => ({
+    type: RecipeActionTypes.FETCH_RECIPE_START,
     payload: id
 });
 
-export const fetchRecipeInfoSuccess = (recipeInfo) => ({
-    type: RecipeInfoActionTypes.FETCH_RECIPE_INFO_SUCCESS,
-    payload: recipeInfo
+export const fetchRecipeSuccess = (recipe) => ({
+    type: RecipeActionTypes.FETCH_RECIPE_SUCCESS,
+    payload: recipe
 });
 
-export const fetchRecipeInfoFailure = (errorMessage) => ({
-    type: RecipeInfoActionTypes.FETCH_RECIPE_INFO_FAILURE,
+export const fetchRecipeFailure = (errorMessage) => ({
+    type: RecipeActionTypes.FETCH_RECIPE_FAILURE,
     payload: errorMessage
 });
 
 export const addServing  = () => ({
-    type: RecipeInfoActionTypes.ADD_SERVING
+    type: RecipeActionTypes.ADD_SERVING
 });
 
 export const deleteServing  = () => ({
-    type: RecipeInfoActionTypes.DELETE_SERVING
+    type: RecipeActionTypes.DELETE_SERVING
 });
 
 export const addToShoppingList  = (ingredients) => ({
-    type: RecipeInfoActionTypes.ADD_TO_SHOPPING_LIST,
+    type: RecipeActionTypes.ADD_TO_SHOPPING_LIST,
     payload: ingredients
 });
 
 export const deleteShoppingListItem  = (id) => ({
-    type: RecipeInfoActionTypes.DELETE_SHOPPING_LIST_ITEM,
+    type: RecipeActionTypes.DELETE_SHOPPING_LIST_ITEM,
+    payload: id
+});
+
+export const addToLikesList = (likedRecipe) => ({
+    type: RecipeActionTypes.ADD_TO_LIKES_LIST,
+    payload: likedRecipe
+});
+
+export const deleteFromLikesList  = (id) => ({
+    type: RecipeActionTypes.DELETE_FROM_LIKES_LIST,
     payload: id
 });
 

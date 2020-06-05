@@ -4,7 +4,7 @@ import { limitRecipeTitle } from '../utils/utils';
 
 class RecipesListItem extends React.Component {
 
-    handleFetchRecipeInfo = event => {
+    handleFetchRecipe = event => {
         event.preventDefault();
         const { recipe, handleCurrentRecipe } = this.props;
         handleCurrentRecipe(recipe.id);
@@ -16,7 +16,7 @@ class RecipesListItem extends React.Component {
        
         return (
             <li>
-                <a className={`results__link ${current === id ? "results__link--active" : " "}`} href={'/' + id} onClick={this.handleFetchRecipeInfo}>
+                <a className={`results__link ${current === id ? "results__link--active" : " "}`} href={'/' + id} onClick={this.handleFetchRecipe}>
                     <figure className="results__fig">
                         <img src={`https://spoonacular.com/recipeImages/${id}-556x370.jpg`} alt="Test" />
                     </figure>

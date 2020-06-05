@@ -1,12 +1,14 @@
-import { RecipesActionTypes, RecipeInfoActionTypes } from '../actions/recipe.types';
+import { RecipesActionTypes, RecipeActionTypes } from '../actions/recipe.types';
 import { addIngrPerServing, deleteIngrPerServing } from '../utils/utils'; 
 
 const INITIAL_STATE = {
-    recipes: null,
-    recipeInfo: null,
-    shoppingList: [],
     isPending: false,
-    errorMessage: undefined
+    recipes: null,
+    recipe: null,
+    shoppingList: [],
+    likesList: [],
+    isLiked: false, 
+    errorMessage: undefined,
 }
 
 const recipeReducer = (state = INITIAL_STATE, action) => {
@@ -28,49 +30,61 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
                 isPending: false,
                 errorMessage: action.payload
             }
-        case RecipeInfoActionTypes.FETCH_RECIPE_INFO_START:
+        case RecipeActionTypes.FETCH_RECIPE_START:
             return {
                 ...state,
                 isPending: true
             }
-        case RecipeInfoActionTypes.FETCH_RECIPE_INFO_SUCCESS:
+        case RecipeActionTypes.FETCH_RECIPE_SUCCESS:
             return {
                 ...state,
                 isPending: false,
-                recipeInfo: action.payload
+                recipe: action.payload
             }
-        case RecipeInfoActionTypes.FETCH_RECIPE_INFO_FAILURE:
+        case RecipeActionTypes.FETCH_RECIPE_FAILURE:
             return {
                 ...state,
                 isPending: false,
                 errorMessage: action.payload
             }
-        case RecipeInfoActionTypes.ADD_SERVING:
+        case RecipeActionTypes.ADD_SERVING:
             return {
                 ...state,
-                recipeInfo: { ...state.recipeInfo, 
-                    servings: state.recipeInfo.servings + 1,
-                    ingredients: addIngrPerServing(state.recipeInfo.ingredients)    
+                recipe: { ...state.recipe, 
+                    servings: state.recipe.servings + 1,
+                    ingredients: addIngrPerServing(state.recipe.ingredients)    
                 }
             }
-        case RecipeInfoActionTypes.DELETE_SERVING:
+        case RecipeActionTypes.DELETE_SERVING:
             return {
                 ...state,
-                recipeInfo: { ...state.recipeInfo, 
-                    servings: state.recipeInfo.servings > 1 ? state.recipeInfo.servings - 1 : 1,
-                    ingredients: state.recipeInfo.servings > 1 ? 
-                        deleteIngrPerServing(state.recipeInfo.ingredients) : 
-                        [ ...state.recipeInfo.ingredients]  }
+                recipe: { ...state.recipe, 
+                    servings: state.recipe.servings > 1 ? state.recipe.servings - 1 : 1,
+                    ingredients: state.recipe.servings > 1 ? 
+                        deleteIngrPerServing(state.recipe.ingredients) : 
+                        [ ...state.recipe.ingredients]  }
             }
-        case RecipeInfoActionTypes.ADD_TO_SHOPPING_LIST:
+        case RecipeActionTypes.ADD_TO_SHOPPING_LIST:
             return {
                 ...state,
-                shoppingList: [...state.shoppingList, ...action.payload]
+                shoppingList: [ ...state.shoppingList, ...action.payload]
             }
-        case RecipeInfoActionTypes.DELETE_SHOPPING_LIST_ITEM:
+        case RecipeActionTypes.DELETE_SHOPPING_LIST_ITEM:
             return {
                 ...state,
                 shoppingList: state.shoppingList.filter(item => item.id !== action.payload)
+            }
+        case RecipeActionTypes.ADD_TO_LIKES_LIST:
+            return {
+                ...state,
+                likesList: [ ...state.likesList, action.payload ],
+                isLiked: true
+            }
+        case RecipeActionTypes.DELETE_FROM_LIKES_LIST:
+            return {
+                ...state,
+                likesList: state.likesList.filter(item => item.id !== action.payload),
+                isLiked: false
             }
         default:
             return state;

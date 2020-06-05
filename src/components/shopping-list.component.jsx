@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ShoppingListItem from './shopping-list-item.component';
 
-const ShoppingList = ({ shoppingList }) => {
-    console.log("In the shopping list");
-    console.log(shoppingList);
-    
+const ShoppingList = ({ shoppingList }) => { 
     return (
         <ul className="shopping__list">
             {

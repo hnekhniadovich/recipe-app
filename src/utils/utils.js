@@ -42,4 +42,17 @@ export const deleteIngrPerServing = (ingredients) => {
     });
 };
 
+// export const toggleLikeBtn = (arr, id) => {
+//     if(arr.length > 0) {
+//         arr.map(item => {
+//             return (
+//                 if(item.id !== id) {
+//                     arr.push()
+//                 }
+//             )
+//         })
+//     }
+    
+// };
+
 

@@ -3,7 +3,13 @@ import nextId from "react-id-generator";
 
 import { connect } from 'react-redux';
 
-import { fetchRecipeInfoStart, addServing, deleteServing, addToShoppingList } from '../actions/recipe.actions';
+import { 
+    fetchRecipeStart, 
+    addServing, 
+    deleteServing, 
+    addToShoppingList, 
+    addToLikesList,
+    deleteFromLikesList } from '../actions/recipe.actions';
 
 import RecipeIngredients from './recipe-ingredients.component';
 import Spinner from './spinner.component';
@@ -11,33 +17,55 @@ import icons from '../assets/icons.svg';
 
 
 class Recipe extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isLiked: false
+        }
+    }
     
     componentDidUpdate(prevProps) { 
-        const { id, fetchRecipeInfo } = this.props;
+        const { id, fetchRecipe } = this.props;
        
         if (id !== prevProps.id) {
-            fetchRecipeInfo(id);
+            fetchRecipe(id);
+        }
+    }
+
+    toggleLikeBtn = () => { 
+        const { recipe, addToLikesList, deleteFromLikesList } = this.props;
+        //this.setState({ isLiked: !this.state.isLiked })
+        recipe.isLiked = !recipe.isLiked;
+        
+        if(recipe.isLiked) {
+            addToLikesList(recipe);
+            
+        } else {
+            deleteFromLikesList(recipe.id);
         }
     }
 
     render() {
 
-        const { info, isPending, addServing, deleteServing, addToShoppingList } = this.props;
+        const { recipe, isPending, addServing, deleteServing, addToShoppingList, isLiked } = this.props;
 
-        //console.log(info);
-        
+     
         let content;
 
         if(isPending) {
             content = <Spinner />
         } else {
-            if(info) {
+            if(recipe) {
+                console.log(recipe);
+                console.log("Recipe liked " + recipe.isLiked);
                 content = (
                     <>
                         <figure className="recipe__fig">
-                            <img src={info.image} alt={info.title} className="recipe__img" />
+                            <img src={recipe.image} alt={recipe.title} className="recipe__img" />
                             <h1 className="recipe__title">
-                                <span>{info.title}</span>
+                                <span>{recipe.title}</span>
                             </h1>
                         </figure>
                         <div className="recipe__details">
@@ -45,14 +73,14 @@ class Recipe extends React.Component {
                                 <svg className="recipe__info-icon">
                                     <use href={icons + '#icon-stopwatch'}></use>
                                 </svg>
-                                    <span className="recipe__info-data recipe__info-data--minutes">{info.readyInMinutes}</span>
+                                    <span className="recipe__info-data recipe__info-data--minutes">{recipe.readyInMinutes}</span>
                                 <span className="recipe__info-text"> minutes</span>
                             </div>
                             <div className="recipe__info">
                                 <svg className="recipe__info-icon">
                                     <use href={icons + '#icon-man'}></use>
                                 </svg>
-                                    <span className="recipe__info-data recipe__info-data--people">{info.servings}</span>
+                                    <span className="recipe__info-data recipe__info-data--people">{recipe.servings}</span>
                                 <span className="recipe__info-text"> servings</span>
 
                                 <div className="recipe__info-buttons">
@@ -68,9 +96,10 @@ class Recipe extends React.Component {
                                     </button>
                                 </div>
                             </div>
-                            <button className="recipe__love">
+                            {console.log()}
+                            <button className={"recipe__love"} onClick={this.toggleLikeBtn}>
                                 <svg className="header__likes">
-                                    <use href={icons + '#icon-heart-outlined'}></use>
+                                    <use href={icons + `${recipe.isLiked ? "#icon-heart" : "#icon-heart-outlined"}`}></use>
                                 </svg>
                             </button>
                         </div>
@@ -78,15 +107,15 @@ class Recipe extends React.Component {
                         <div className="recipe__ingredients">
 
                             { 
-                                info
+                                recipe
                                 ?
                                 <>
                                     <ul className="recipe__ingredient-list">
                                         {
-                                            info.ingredients.map(item => <RecipeIngredients key={nextId()} item={item} />)
+                                            recipe.ingredients.map(item => <RecipeIngredients key={nextId()} item={item} />)
                                         }
                                     </ul>
-                                    <button className="btn-small recipe__btn" onClick={() => addToShoppingList(info.ingredients)}>
+                                    <button className="btn-small recipe__btn" onClick={() => addToShoppingList(recipe.ingredients)}>
                                         <svg className="search__icon">
                                             <use href={icons + '#icon-shopping-cart'}></use>
                                         </svg>
@@ -103,9 +132,9 @@ class Recipe extends React.Component {
                             <h2 className="heading-2">How to cook it</h2>
                             <p className="recipe__directions-text">
                                 This recipe was carefully designed and tested by
-                                <span className="recipe__by"> {info.sourceName}</span>. Please check out directions at their website.
+                                <span className="recipe__by"> {recipe.sourceName}</span>. Please check out directions at their website.
                             </p>
-                            <a className="btn-small recipe__btn" href={info.sourceUrl} target="_blank">
+                            <a className="btn-small recipe__btn" href={recipe.sourceUrl} target="_blank">
                                 <span>Directions</span>
                                 <svg className="search__icon">
                                     <use href={icons + '#icon-triangle-right'}></use>
@@ -127,17 +156,20 @@ class Recipe extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        info: state.recipes.recipeInfo
+        recipe: state.recipes.recipe,
+        isLiked: state.recipes.isLiked 
     }
 };
     
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchRecipeInfo: (id) => dispatch(fetchRecipeInfoStart(id)),
+        fetchRecipe: (id) => dispatch(fetchRecipeStart(id)),
         addServing:() => dispatch(addServing()),
         deleteServing:() => dispatch(deleteServing()),
-        addToShoppingList: (ingredients) => dispatch(addToShoppingList(ingredients))
+        addToShoppingList: (ingredients) => dispatch(addToShoppingList(ingredients)),
+        addToLikesList: (recipes) => dispatch(addToLikesList(recipes)),
+        deleteFromLikesList: (id) => dispatch(deleteFromLikesList(id))
     }
 };
 

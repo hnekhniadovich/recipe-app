@@ -2,11 +2,11 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { 
     fetchRecipesSuccess, 
     fetchRecipesFailure, 
-    fetchRecipeInfoSuccess, 
-    fetchRecipeInfoFailure
+    fetchRecipeSuccess, 
+    fetchRecipeFailure
 } from '../actions/recipe.actions';
 
-import { RecipesActionTypes, RecipeInfoActionTypes } from '../actions/recipe.types';
+import { RecipesActionTypes, RecipeActionTypes } from '../actions/recipe.types';
 import { getRecipes, getRecipeInfo, getRecipeIngredients } from '../utils/api';
 import { addAmountPerServing } from '../utils/utils';
 
@@ -26,30 +26,30 @@ export function* fetchRecipes() {
     )
 };
 
-export function* fetchRecipeInfoAsync(action) { 
+export function* fetchRecipeAsync(action) { 
     try {
         const recipeInformation = yield getRecipeInfo(action.payload);
         const recipeIngredients = yield getRecipeIngredients(action.payload);
 
         let recipeInfo = {...recipeInformation, ...recipeIngredients};
-        let newRecipeInfo = { ...recipeInfo, ingredients: addAmountPerServing(recipeInfo.ingredients, recipeInfo.servings )};
+        let recipe = { ...recipeInfo, isLiked: false, ingredients: addAmountPerServing(recipeInfo.ingredients, recipeInfo.servings )};
 
-        yield put(fetchRecipeInfoSuccess(newRecipeInfo));
+        yield put(fetchRecipeSuccess(recipe));
     } catch (error) {
-        yield put(fetchRecipeInfoFailure(error.message));
+        yield put(fetchRecipeFailure(error.message));
     }
 };
 
-export function* fetchRecipeInfo() {
+export function* fetchRecipe() {
     yield takeLatest(
-        RecipeInfoActionTypes.FETCH_RECIPE_INFO_START,
-        fetchRecipeInfoAsync
+        RecipeActionTypes.FETCH_RECIPE_START,
+        fetchRecipeAsync
     )
 };
 
 export function* recipesSagas() {
     yield all([
         call(fetchRecipes),
-        call(fetchRecipeInfo)
+        call(fetchRecipe)
     ]);
 };
