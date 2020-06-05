@@ -58,6 +58,11 @@ export const deleteFromLikesList  = (id) => ({
     payload: id
 });
 
+export const setActiveRecipe = (id) => ({
+    type: RecipeActionTypes.SET_ACTIVE_RECIPE,
+    payload: id
+});
+
 
 
 

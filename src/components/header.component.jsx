@@ -8,8 +8,7 @@ const Header = () => (
     <header className='header'>
         <img src={logo} alt="Logo" className="header__logo" />
         <SearchBox />
-        <LikesList /> 
-        
+        <LikesList />  
     </header>
 );
 

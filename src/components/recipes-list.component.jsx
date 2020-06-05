@@ -10,8 +10,6 @@ import PageButton from './page-button.components';
 class RecipesList extends React.Component {
 
     renderResults = (recipes, page, resPerPage = 10) => { 
-
-        const {handleCurrentRecipe, current } = this.props;
         const start = (page - 1) * resPerPage;
         const end = page * resPerPage;
 
@@ -20,8 +18,6 @@ class RecipesList extends React.Component {
                 <RecipesListItem 
                     key={recipe.id} 
                     recipe={recipe} 
-                    handleCurrentRecipe={handleCurrentRecipe}
-                    current={current}
                 />
             )
         });

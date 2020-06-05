@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import icons from '../assets/icons.svg';
 import LikesListItem from './likes-list-item.component';
 
-const LikesList = ({ likesList }) => {
+const LikesList = ({ likesList, handleCurrentRecipe }) => {
 
     // console.log('I am in likes list');
     // console.log(likesList);
@@ -24,7 +24,7 @@ const LikesList = ({ likesList }) => {
                 <div className="likes__panel">
                     <ul className="likes__list">
                         {
-                            likesList.map(item => <LikesListItem key={item.id} item={item}/>)
+                            likesList.map(item => <LikesListItem key={item.id} item={item} handleCurrentRecipe={handleCurrentRecipe}/>)
                         }
                         
                     </ul>

@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     isPending: false,
     recipes: null,
     recipe: null,
+    activeRecipe: null,
     shoppingList: [],
     likesList: [],
     isLiked: false, 
@@ -86,7 +87,11 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
                 likesList: state.likesList.filter(item => item.id !== action.payload),
                 isLiked: false
             }
-        
+        case RecipeActionTypes.SET_ACTIVE_RECIPE:
+            return {
+                ...state,
+                activeRecipe: action.payload
+            }
         default:
             return state;
     }

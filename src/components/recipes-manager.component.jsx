@@ -7,20 +7,9 @@ import Recipe from './recipe.component';
 import ShoppingList from './shopping-list.component';
 
 class RecipesManager extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            active: null
-        }
-    }
-    
-    handleCurrentRecipe = (id) => {
-        this.setState({ active: id});
-    }
 
     render() {
-        const { recipes, isPending, shoppingList } = this.props;
+        const { recipes, isPending, shoppingList, activeRecipe } = this.props;
 
         return(
             <>
@@ -28,15 +17,13 @@ class RecipesManager extends React.Component {
                     <RecipesList 
                         recipes={recipes} 
                         isPending={isPending}
-                        handleCurrentRecipe={this.handleCurrentRecipe}
-                        current={this.state.active}
                     />
                 </div>
                 <div className="recipe">
                 {
                     recipes 
                     ? 
-                    <Recipe recipes={recipes} id={this.state.active} isPending={isPending}/> 
+                    <Recipe recipes={recipes} id={activeRecipe} isPending={isPending}/> 
                     :
                     null
                 }
@@ -64,7 +51,8 @@ const mapStateToProps = (state) => {
     return {
         recipes: state.recipes.recipes,
         isPending: state.recipes.isPending,
-        shoppingList: state.recipes.shoppingList
+        shoppingList: state.recipes.shoppingList,
+        activeRecipe: state.recipes.activeRecipe
     }
 };
 

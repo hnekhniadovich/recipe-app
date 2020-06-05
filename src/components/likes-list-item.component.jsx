@@ -1,16 +1,43 @@
 import React from 'react';
 
-const LikesListItem = ({ item }) => (
-    <li>
-        <a className="likes__link" href="#23456">
-            <figure className="likes__fig">
-                <img src={item.image} alt={item.title} />
-            </figure>
-            <div className="likes__data">
-                <h4 className="likes__name">{(item.title)}</h4>
-            </div>
-        </a>
-    </li>
-);
+import { connect } from 'react-redux';
+import { setActiveRecipe } from '../actions/recipe.actions';
 
-export default LikesListItem;
+class LikesListItem extends React.Component {
+
+    handleFetchRecipe = event => {
+        event.preventDefault();
+        const { item, setActiveRecipe } = this.props;
+        setActiveRecipe(item.id);
+    }
+
+    render() {
+        const { id, title, image } = this.props.item;
+        return (
+            <li>
+                <a className="likes__link" href={'/' + id} onClick={this.handleFetchRecipe}>
+                    <figure className="likes__fig">
+                        <img src={image} alt={title} />
+                    </figure>
+                    <div className="likes__data">
+                        <h4 className="likes__name">{title}</h4>
+                    </div>
+                </a>
+            </li>
+        )
+    }   
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setActiveRecipe: (id) => dispatch(setActiveRecipe(id))
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        activeRecipe: state.recipes.activeRecipe
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LikesListItem);
