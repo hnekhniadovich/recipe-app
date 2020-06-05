@@ -58,8 +58,8 @@ class Recipe extends React.Component {
             content = <Spinner />
         } else {
             if(recipe) {
-                console.log(recipe);
-                console.log("Recipe liked " + recipe.isLiked);
+                // console.log(recipe);
+                // console.log("Recipe liked " + recipe.isLiked);
                 content = (
                     <>
                         <figure className="recipe__fig">

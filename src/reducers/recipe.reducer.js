@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     shoppingList: [],
     likesList: [],
     isLiked: false, 
-    errorMessage: undefined,
+    errorMessage: undefined
 }
 
 const recipeReducer = (state = INITIAL_STATE, action) => {
@@ -86,6 +86,7 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
                 likesList: state.likesList.filter(item => item.id !== action.payload),
                 isLiked: false
             }
+        
         default:
             return state;
     }

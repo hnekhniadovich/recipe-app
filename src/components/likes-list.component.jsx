@@ -7,8 +7,8 @@ import LikesListItem from './likes-list-item.component';
 
 const LikesList = ({ likesList }) => {
 
-    console.log('I am in likes list');
-    console.log(likesList);
+    // console.log('I am in likes list');
+    // console.log(likesList);
 
     return (
         <div className="likes">

@@ -1,17 +1,57 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+import { nextPage, prevPage } from '../actions/pagination.actions';
+
 import RecipesListItem from './recipes-list-item.component';
 import Spinner from './spinner.component';
-import icons from '../assets/icons.svg';
+import PageButton from './page-button.components';
 
 class RecipesList extends React.Component {
 
+    renderResults = (recipes, page, resPerPage = 10) => { 
+
+        const {handleCurrentRecipe, current } = this.props;
+        const start = (page - 1) * resPerPage;
+        const end = page * resPerPage;
+
+        return recipes.results.slice(start, end).map(recipe => {
+            return (
+                <RecipesListItem 
+                    key={recipe.id} 
+                    recipe={recipe} 
+                    handleCurrentRecipe={handleCurrentRecipe}
+                    current={current}
+                />
+            )
+        });
+    }
+
+    renderButtons = (pageNum, numResults, resPerPage) => {
+
+        const { prevPage, nextPage } = this.props;
+        const pages = Math.ceil(numResults / resPerPage);
+        let content;
+
+        if(pageNum === 1 && pages > 1) {
+            content = <PageButton direction={'next'} pageNum={pageNum + 1} arrow={'right'} action={nextPage}/>
+        } else if (pageNum < pages) {
+            content = (
+                <>
+                    <PageButton direction={'prev'} pageNum={pageNum - 1} arrow={'left'} action={prevPage}/>
+                    <PageButton direction={'next'} pageNum={pageNum + 1} arrow={'right'} action={nextPage}/>
+                </>
+            )
+        } else if (pageNum === pages && pages > 1) { 
+            content = <PageButton direction={'prev'} pageNum={pageNum - 1} arrow={'left'} action={prevPage}/>
+        }
+
+        return content;
+    }
+
     render() {
-
-        //console.log("recipe list is rendering!");
+        const {recipes, isPending, pageNum } = this.props;
         
-        const {recipes, isPending, handleCurrentRecipe, current } = this.props;
-
         let content;
 
         if(isPending) {
@@ -19,19 +59,16 @@ class RecipesList extends React.Component {
         } else {
             if(recipes) {
                 content = (
-                    <ul className="results__list">
-                    {
-                        recipes.results.map(recipe => {
-                            return (
-                                <RecipesListItem 
-                                    key={recipe.id} 
-                                    recipe={recipe} 
-                                    handleCurrentRecipe={handleCurrentRecipe}
-                                    current={current}
-                                />
-                            )
-                        })}
-                    </ul>
+                    <>
+                        <ul className="results__list">
+                        {
+                            this.renderResults(recipes, pageNum)
+                        }
+                        </ul>
+                        <div className="results__pages">
+                            {this.renderButtons(pageNum, recipes.results.length, 10)}
+                        </div>
+                    </>
                 )
             } else {
                 content = null
@@ -41,25 +78,22 @@ class RecipesList extends React.Component {
         return (
             <>
                 { content }
-
-                <div className="results__pages">
-                    <button className="btn-inline results__btn--prev">
-                        <svg className="search__icon">
-                            <use href={icons + '#icon-triangle-left'}></use>
-                        </svg>
-                        <span>Page 1</span>
-                    </button>
-                    <button className="btn-inline results__btn--next">
-                        <span>Page 3</span>
-                        <svg className="search__icon">
-                            <use href={icons + '#icon-triangle-right'}></use>
-                        </svg>
-                    </button>
-                </div>
-
             </>
         )
     }
 }
-  
-export default RecipesList;
+
+const mapStateToProps = (state) => {
+    return {
+        pageNum: state.pages.pageNumber
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        prevPage: () => dispatch(prevPage()),
+        nextPage: () => dispatch(nextPage())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipesList);

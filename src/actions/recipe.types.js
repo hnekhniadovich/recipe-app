@@ -1,3 +1,7 @@
+export const SearchActionTypes = {
+    CHANGE_SEARCHFIELD: 'CHANGE_SEARCHFIELD'
+};
+
 export const RecipesActionTypes = {
     FETCH_RECIPES_START: 'FETCH_RECIPES_START',
     FETCH_RECIPES_SUCCESS: 'FETCH_RECIPES_SUCCESS',
@@ -16,13 +20,15 @@ export const RecipeActionTypes = {
     DELETE_FROM_LIKES_LIST: 'DELETE_FROM_LIKES_LIST'
 };
 
-export const SearchActionTypes = {
-    CHANGE_SEARCHFIELD: 'CHANGE_SEARCHFIELD'
+export const PaginationTypes = {
+    PAGE_NEXT: 'PAGE_NEXT',
+    PAGE_PREV: 'PAGE_PREV'
 };
 
 export default {
-    RecipesActionTypes,
     SearchActionTypes,
-    RecipeActionTypes
+    RecipesActionTypes,
+    RecipeActionTypes,
+    PaginationTypes
 }
 
