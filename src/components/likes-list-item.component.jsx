@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+
 import { setActiveRecipe } from '../actions/recipe.actions';
 
 class LikesListItem extends React.Component {
@@ -13,6 +14,7 @@ class LikesListItem extends React.Component {
 
     render() {
         const { id, title, image } = this.props.item;
+
         return (
             <li>
                 <a className="likes__link" href={'/' + id} onClick={this.handleFetchRecipe}>
@@ -34,10 +36,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const mapStateToProps = (state) => {
-    return {
-        activeRecipe: state.recipes.activeRecipe
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LikesListItem);
+export default connect(null, mapDispatchToProps)(LikesListItem);

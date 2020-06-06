@@ -9,21 +9,21 @@ import ShoppingList from './shopping-list.component';
 class RecipesManager extends React.Component {
 
     render() {
-        const { recipes, isPending, shoppingList, activeRecipe } = this.props;
+        const { recipes, isPending1, isPending2, shoppingList, activeRecipe } = this.props;
 
         return(
             <>
                 <div className="results">
                     <RecipesList 
                         recipes={recipes} 
-                        isPending={isPending}
+                        isPending={isPending1}
                     />
                 </div>
                 <div className="recipe">
                 {
                     recipes 
                     ? 
-                    <Recipe recipes={recipes} id={activeRecipe} isPending={isPending}/> 
+                    <Recipe recipes={recipes} id={activeRecipe} isPending={isPending2}/> 
                     :
                     null
                 }
@@ -50,7 +50,8 @@ class RecipesManager extends React.Component {
 const mapStateToProps = (state) => {
     return {
         recipes: state.recipes.recipes,
-        isPending: state.recipes.isPending,
+        isPending1: state.recipes.isPending1,
+        isPending2: state.recipes.isPending2,
         shoppingList: state.recipes.shoppingList,
         activeRecipe: state.recipes.activeRecipe
     }

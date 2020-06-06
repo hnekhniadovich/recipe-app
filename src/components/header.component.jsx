@@ -1,8 +1,9 @@
 import React from 'react';
 
-import logo from '../assets/logo.png';
 import SearchBox from './search-box.component';
 import LikesList from './likes-list.component';
+import logo from '../assets/logo.png';
+
 
 const Header = () => (
     <header className='header'>

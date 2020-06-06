@@ -18,14 +18,6 @@ import icons from '../assets/icons.svg';
 
 class Recipe extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isLiked: false
-        }
-    }
-    
     componentDidUpdate(prevProps) { 
         const { id, fetchRecipe } = this.props;
        
@@ -34,14 +26,17 @@ class Recipe extends React.Component {
         }
     }
 
+    isRecipeLiked = (list, id) => {
+        return !!((list.filter(item => item.id === id)).length);
+    }
+
     toggleLikeBtn = () => { 
-        const { recipe, addToLikesList, deleteFromLikesList } = this.props;
-        //this.setState({ isLiked: !this.state.isLiked })
-        recipe.isLiked = !recipe.isLiked;
-        
-        if(recipe.isLiked) {
+        const { recipe, addToLikesList, deleteFromLikesList, likesList } = this.props;
+
+        let isLiked = this.isRecipeLiked(likesList, recipe.id);
+
+        if(!isLiked) {
             addToLikesList(recipe);
-            
         } else {
             deleteFromLikesList(recipe.id);
         }
@@ -49,17 +44,15 @@ class Recipe extends React.Component {
 
     render() {
 
-        const { recipe, isPending, addServing, deleteServing, addToShoppingList, isLiked } = this.props;
+        const { recipe, isPending, addServing, deleteServing, addToShoppingList, likesList } = this.props;
 
-     
         let content;
 
         if(isPending) {
             content = <Spinner />
         } else {
             if(recipe) {
-                // console.log(recipe);
-                // console.log("Recipe liked " + recipe.isLiked);
+                let isLiked = this.isRecipeLiked(likesList, recipe.id);
                 content = (
                     <>
                         <figure className="recipe__fig">
@@ -99,7 +92,7 @@ class Recipe extends React.Component {
                             {console.log()}
                             <button className={"recipe__love"} onClick={this.toggleLikeBtn}>
                                 <svg className="header__likes">
-                                    <use href={icons + `${recipe.isLiked ? "#icon-heart" : "#icon-heart-outlined"}`}></use>
+                                    <use href={icons + `${isLiked ? "#icon-heart" : "#icon-heart-outlined"}`}></use>
                                 </svg>
                             </button>
                         </div>
@@ -156,19 +149,18 @@ class Recipe extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        recipe: state.recipes.recipe,
-        isLiked: state.recipes.isLiked 
+        recipe: state.recipes.recipe, 
+        likesList: state.recipes.likesList
     }
 };
     
-
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchRecipe: (id) => dispatch(fetchRecipeStart(id)),
         addServing:() => dispatch(addServing()),
         deleteServing:() => dispatch(deleteServing()),
         addToShoppingList: (ingredients) => dispatch(addToShoppingList(ingredients)),
-        addToLikesList: (recipes) => dispatch(addToLikesList(recipes)),
+        addToLikesList: (recipe) => dispatch(addToLikesList(recipe)),
         deleteFromLikesList: (id) => dispatch(deleteFromLikesList(id))
     }
 };

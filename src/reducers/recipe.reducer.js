@@ -2,13 +2,13 @@ import { RecipesActionTypes, RecipeActionTypes } from '../actions/recipe.types';
 import { addIngrPerServing, deleteIngrPerServing } from '../utils/utils'; 
 
 const INITIAL_STATE = {
-    isPending: false,
+    isPending1: false,
+    isPending2: false,
     recipes: null,
     recipe: null,
     activeRecipe: null,
     shoppingList: [],
     likesList: [],
-    isLiked: false, 
     errorMessage: undefined
 }
 
@@ -17,35 +17,35 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
         case RecipesActionTypes.FETCH_RECIPES_START:
             return {
                 ...state,
-                isPending: true
+                isPending1: true
             }
         case RecipesActionTypes.FETCH_RECIPES_SUCCESS:
             return {
                 ...state,
-                isPending: false,
+                isPending1: false,
                 recipes: action.payload
             }
         case RecipesActionTypes.FETCH_RECIPES_FAILURE:
             return {
                 ...state,
-                isPending: false,
+                isPending1: false,
                 errorMessage: action.payload
             }
         case RecipeActionTypes.FETCH_RECIPE_START:
             return {
                 ...state,
-                isPending: true
+                isPending2: true
             }
         case RecipeActionTypes.FETCH_RECIPE_SUCCESS:
             return {
                 ...state,
-                isPending: false,
+                isPending2: false,
                 recipe: action.payload
             }
         case RecipeActionTypes.FETCH_RECIPE_FAILURE:
             return {
                 ...state,
-                isPending: false,
+                isPending2: false,
                 errorMessage: action.payload
             }
         case RecipeActionTypes.ADD_SERVING:
@@ -79,13 +79,13 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 likesList: [ ...state.likesList, action.payload ],
-                isLiked: true
+                recipe: { ...state.recipe, isLiked: true }
             }
         case RecipeActionTypes.DELETE_FROM_LIKES_LIST:
             return {
                 ...state,
                 likesList: state.likesList.filter(item => item.id !== action.payload),
-                isLiked: false
+                recipe: { ...state.recipe, isLiked: false }
             }
         case RecipeActionTypes.SET_ACTIVE_RECIPE:
             return {

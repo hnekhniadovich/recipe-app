@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { setActiveRecipe } from '../actions/recipe.actions';
 
+import { setActiveRecipe } from '../actions/recipe.actions';
 import { limitRecipeTitle } from '../utils/utils';
+
 
 class RecipesListItem extends React.Component {
 
