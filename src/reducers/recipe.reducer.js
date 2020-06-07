@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     shoppingList: [],
     likesList: [],
     errorMessage: undefined
-}
+};
 
 const recipeReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
@@ -74,18 +74,6 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 shoppingList: state.shoppingList.filter(item => item.id !== action.payload)
-            }
-        case RecipeActionTypes.ADD_TO_LIKES_LIST:
-            return {
-                ...state,
-                likesList: [ ...state.likesList, action.payload ],
-                recipe: { ...state.recipe, isLiked: true }
-            }
-        case RecipeActionTypes.DELETE_FROM_LIKES_LIST:
-            return {
-                ...state,
-                likesList: state.likesList.filter(item => item.id !== action.payload),
-                recipe: { ...state.recipe, isLiked: false }
             }
         case RecipeActionTypes.SET_ACTIVE_RECIPE:
             return {

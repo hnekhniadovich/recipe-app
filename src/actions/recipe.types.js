@@ -16,8 +16,7 @@ export const RecipeActionTypes = {
     DELETE_SERVING: 'DELETE_SERVING',
     ADD_TO_SHOPPING_LIST: 'ADD_TO_SHOPPING_LIST',
     DELETE_SHOPPING_LIST_ITEM: 'DELETE_SHOPPING_LIST_ITEM',
-    ADD_TO_LIKES_LIST: 'ADD_TO_LIKES_LIST',
-    DELETE_FROM_LIKES_LIST: 'DELETE_FROM_LIKES_LIST',
+    
     SET_ACTIVE_RECIPE: 'SET_ACTIVE_RECIPE'
 };
 
@@ -26,10 +25,16 @@ export const PaginationTypes = {
     PAGE_PREV: 'PAGE_PREV'
 };
 
+export const LikesTypes = {
+    ADD_TO_LIKES_LIST: 'ADD_TO_LIKES_LIST',
+    DELETE_FROM_LIKES_LIST: 'DELETE_FROM_LIKES_LIST'
+}
+
 export default {
     SearchActionTypes,
     RecipesActionTypes,
     RecipeActionTypes,
-    PaginationTypes
+    PaginationTypes,
+    LikesTypes
 }
 

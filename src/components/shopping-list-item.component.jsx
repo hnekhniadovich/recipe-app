@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteShoppingListItem } from '../actions/recipe.actions'; 
+import { formatCount } from '../utils/utils';
 import icons from '../assets/icons.svg';
 
 const ShoppingListItem = ({ item, deleteShoppingListItem }) => (
     <li className="shopping__item">
         <div className="shopping__count">
-            <input type="number" defaultValue={item.amount.us.value} />
+            <input type="number" defaultValue={formatCount(item.amount.us.value)} />
             <p>{(item.amount.us.unit).toLowerCase()}</p>
         </div>
         <p className="shopping__description">{item.name}</p>

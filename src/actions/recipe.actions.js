@@ -48,16 +48,6 @@ export const deleteShoppingListItem  = (id) => ({
     payload: id
 });
 
-export const addToLikesList = (likedRecipe) => ({
-    type: RecipeActionTypes.ADD_TO_LIKES_LIST,
-    payload: likedRecipe
-});
-
-export const deleteFromLikesList  = (id) => ({
-    type: RecipeActionTypes.DELETE_FROM_LIKES_LIST,
-    payload: id
-});
-
 export const setActiveRecipe = (id) => ({
     type: RecipeActionTypes.SET_ACTIVE_RECIPE,
     payload: id

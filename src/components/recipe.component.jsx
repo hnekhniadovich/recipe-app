@@ -7,9 +7,9 @@ import {
     fetchRecipeStart, 
     addServing, 
     deleteServing, 
-    addToShoppingList, 
-    addToLikesList,
-    deleteFromLikesList } from '../actions/recipe.actions';
+    addToShoppingList } from '../actions/recipe.actions';
+
+import { addToLikesList, deleteFromLikesList } from '../actions/likes.actions';
 
 import RecipeIngredients from './recipe-ingredients.component';
 import Spinner from './spinner.component';
@@ -150,7 +150,7 @@ class Recipe extends React.Component {
 const mapStateToProps = (state) => {
     return {
         recipe: state.recipes.recipe, 
-        likesList: state.recipes.likesList
+        likesList: state.likes.likesList
     }
 };
     
