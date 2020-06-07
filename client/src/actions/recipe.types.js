@@ -28,7 +28,7 @@ export const PaginationTypes = {
 export const LikesTypes = {
     ADD_TO_LIKES_LIST: 'ADD_TO_LIKES_LIST',
     DELETE_FROM_LIKES_LIST: 'DELETE_FROM_LIKES_LIST'
-}
+};
 
 export default {
     SearchActionTypes,
@@ -36,5 +36,5 @@ export default {
     RecipeActionTypes,
     PaginationTypes,
     LikesTypes
-}
+};
 

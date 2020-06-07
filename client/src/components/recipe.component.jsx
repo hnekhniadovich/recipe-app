@@ -127,7 +127,7 @@ class Recipe extends React.Component {
                                 This recipe was carefully designed and tested by
                                 <span className="recipe__by"> {recipe.sourceName}</span>. Please check out directions at their website.
                             </p>
-                            <a className="btn-small recipe__btn" href={recipe.sourceUrl} target="_blank">
+                            <a className="btn-small recipe__btn" href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer">
                                 <span>Directions</span>
                                 <svg className="search__icon">
                                     <use href={icons + '#icon-triangle-right'}></use>
@@ -149,6 +149,9 @@ class Recipe extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        recipes: state.recipes.recipes,
+        isPending: state.recipes.isPending2,
+        id: state.recipes.activeRecipe,
         recipe: state.recipes.recipe, 
         likesList: state.likes.likesList
     }

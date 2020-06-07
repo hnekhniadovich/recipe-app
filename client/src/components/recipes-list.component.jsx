@@ -48,14 +48,19 @@ class RecipesList extends React.Component {
 
     render() {
         const {recipes, isPending, pageNum } = this.props;
-        
+
         let content;
 
         if(isPending) {
             content = <Spinner />
         } else {
             if(recipes) {
-                content = (
+                console.log(recipes);
+                
+                if(!recipes.results.length) {
+                    alert('Oh no.. we do not have any recipes for the given search. Please try again!');
+                }
+                else { content = (
                     <>
                         <ul className="results__list">
                         {
@@ -67,6 +72,7 @@ class RecipesList extends React.Component {
                         </div>
                     </>
                 )
+                }
             } else {
                 content = null
             }
@@ -82,7 +88,9 @@ class RecipesList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        pageNum: state.pages.pageNumber
+        recipes: state.recipes.recipes,
+        isPending: state.recipes.isPending1,
+        pageNum: state.recipes.pageNumber
     };
 };
 

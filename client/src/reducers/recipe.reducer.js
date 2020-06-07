@@ -1,4 +1,4 @@
-import { RecipesActionTypes, RecipeActionTypes } from '../actions/recipe.types';
+import { RecipesActionTypes, RecipeActionTypes, PaginationTypes } from '../actions/recipe.types';
 import { addIngrPerServing, deleteIngrPerServing } from '../utils/utils'; 
 
 const INITIAL_STATE = {
@@ -9,7 +9,8 @@ const INITIAL_STATE = {
     activeRecipe: null,
     shoppingList: [],
     likesList: [],
-    errorMessage: undefined
+    errorMessage: undefined,
+    pageNumber: 1
 };
 
 const recipeReducer = (state = INITIAL_STATE, action) => {
@@ -23,7 +24,8 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isPending1: false,
-                recipes: action.payload
+                recipes: action.payload,
+                pageNumber: 1
             }
         case RecipesActionTypes.FETCH_RECIPES_FAILURE:
             return {
@@ -79,6 +81,16 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 activeRecipe: action.payload
+            }
+        case PaginationTypes.PAGE_NEXT:
+            return {
+                ...state,
+                pageNumber: state.pageNumber + 1
+            }
+        case PaginationTypes.PAGE_PREV:
+            return {
+                ...state,
+                pageNumber: state.pageNumber - 1
             }
         default:
             return state;

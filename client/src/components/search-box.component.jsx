@@ -10,8 +10,9 @@ class SearchBox extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const { searchField, fetchRecipesStart } = this.props;
+        const { searchField, fetchRecipesStart, onSearchChange } = this.props;
         fetchRecipesStart(searchField);
+        //onSearchChange('');
     }
     
     render() {

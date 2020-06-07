@@ -22,7 +22,7 @@ const ShoppingListItem = ({ item, deleteShoppingListItem }) => (
 const mapDispatchToProps = (dispatch) => {
     return {
         deleteShoppingListItem: (id) => dispatch(deleteShoppingListItem(id))
-    }
+    };
 };
 
 export default connect(null, mapDispatchToProps)(ShoppingListItem);

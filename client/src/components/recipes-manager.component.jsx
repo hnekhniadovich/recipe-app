@@ -9,21 +9,16 @@ import ShoppingList from './shopping-list.component';
 class RecipesManager extends React.Component {
 
     render() {
-        const { recipes, isPending1, isPending2, shoppingList, activeRecipe,likesList } = this.props;
+        const { recipes, shoppingList, likesList } = this.props;
 
         return(
             <>
-                <div className="results">
-                    <RecipesList 
-                        recipes={recipes} 
-                        isPending={isPending1}
-                    />
-                </div>
+                <div className="results"><RecipesList /></div>
                 <div className="recipe">
                 {
                     recipes || likesList
                     ? 
-                    <Recipe recipes={recipes} id={activeRecipe} isPending={isPending2}/> 
+                    <Recipe /> 
                     :
                     null
                 }
@@ -38,8 +33,8 @@ class RecipesManager extends React.Component {
                         null
                     }
                      <div className="copyright">
-                        &copy; by Jonas Schmedtmann. Powered by
-                        <a href="http://food2fork.com" target="_blank" className="link">Food2Fork.com</a>.
+                        &copy; by Hanna Nekhniadovich and Jonas Schmedtmann. 
+                        Powered by <a href="https://spoonacular.com/food-ap" target="_blank" className="link" rel="noopener noreferrer">Spoonacular API</a>.
                     </div>
                 </div>
             </>
@@ -50,10 +45,7 @@ class RecipesManager extends React.Component {
 const mapStateToProps = (state) => {
     return {
         recipes: state.recipes.recipes,
-        isPending1: state.recipes.isPending1,
-        isPending2: state.recipes.isPending2,
         shoppingList: state.recipes.shoppingList,
-        activeRecipe: state.recipes.activeRecipe,
         likesList: state.likes.likesList
     }
 };
