@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const proxy = 'https://cors-anywhere.herokuapp.com/';
+
 const key = process.env.REACT_APP_API_KEY;
 
 export const getRecipes = (searchField) => {
