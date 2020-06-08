@@ -3,12 +3,8 @@ import nextId from "react-id-generator";
 
 import { connect } from 'react-redux';
 
-import { 
-    fetchRecipeStart, 
-    addServing, 
-    deleteServing, 
-    addToShoppingList } from '../actions/recipe.actions';
-
+import { fetchRecipeStart, addServing, deleteServing } from '../actions/recipe.actions';
+import { addToShoppingList } from '../actions/shopping.actions';
 import { addToLikesList, deleteFromLikesList } from '../actions/likes.actions';
 
 import RecipeIngredients from './recipe-ingredients.component';
@@ -89,7 +85,6 @@ class Recipe extends React.Component {
                                     </button>
                                 </div>
                             </div>
-                            {console.log()}
                             <button className={"recipe__love"} onClick={this.toggleLikeBtn}>
                                 <svg className="header__likes">
                                     <use href={icons + `${isLiked ? "#icon-heart" : "#icon-heart-outlined"}`}></use>
@@ -150,10 +145,10 @@ class Recipe extends React.Component {
 const mapStateToProps = (state) => {
     return {
         recipes: state.recipes.recipes,
-        isPending: state.recipes.isPending2,
-        id: state.recipes.activeRecipe,
-        recipe: state.recipes.recipe, 
-        likesList: state.likes.likesList
+        isPending: state.recipe.isPending,
+        id: state.recipe.activeRecipe,
+        recipe: state.recipe.recipe, 
+        likesList: state.likesList.likesList
     }
 };
     

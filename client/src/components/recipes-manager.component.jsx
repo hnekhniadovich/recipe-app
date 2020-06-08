@@ -45,8 +45,8 @@ class RecipesManager extends React.Component {
 const mapStateToProps = (state) => {
     return {
         recipes: state.recipes.recipes,
-        shoppingList: state.recipes.shoppingList,
-        likesList: state.likes.likesList
+        shoppingList: state.shoppingList.shoppingList,
+        likesList: state.likesList.likesList
     }
 };
 

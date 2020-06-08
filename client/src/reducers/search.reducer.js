@@ -1,4 +1,4 @@
-import { SearchActionTypes } from '../actions/recipe.types';
+import { SearchActionTypes, RecipesActionTypes } from '../actions/recipe.types';
 
 const INITIAL_STATE = {
     searchField: ''
@@ -10,7 +10,9 @@ const searchReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 searchField: action.payload
-            }
+            };
+        case RecipesActionTypes.FETCH_RECIPES_SUCCESS:
+            return INITIAL_STATE;
         default:
             return state;
     }

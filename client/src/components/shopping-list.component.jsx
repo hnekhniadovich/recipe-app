@@ -15,7 +15,7 @@ const ShoppingList = ({ shoppingList }) => {
 
 const mapStateToProps = (state) => {
     return {
-        shoppingList: state.recipes.shoppingList
+        shoppingList: state.shoppingList.shoppingList
     }
 };
 

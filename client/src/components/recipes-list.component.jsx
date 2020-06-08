@@ -55,7 +55,6 @@ class RecipesList extends React.Component {
             content = <Spinner />
         } else {
             if(recipes) {
-                console.log(recipes);
                 
                 if(!recipes.results.length) {
                     alert('Oh no.. we do not have any recipes for the given search. Please try again!');
@@ -89,8 +88,8 @@ class RecipesList extends React.Component {
 const mapStateToProps = (state) => {
     return {
         recipes: state.recipes.recipes,
-        isPending: state.recipes.isPending1,
-        pageNum: state.recipes.pageNumber
+        isPending: state.recipes.isPending,
+        pageNum: state.pages.pageNumber
     };
 };
 

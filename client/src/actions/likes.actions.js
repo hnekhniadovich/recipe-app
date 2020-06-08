@@ -1,11 +1,11 @@
-import { LikesTypes } from './recipe.types';
+import { LikesActionTypes } from './recipe.types';
 
 export const addToLikesList = (likedRecipe) => ({
-    type: LikesTypes.ADD_TO_LIKES_LIST,
+    type: LikesActionTypes.ADD_TO_LIKES_LIST,
     payload: likedRecipe
 });
 
 export const deleteFromLikesList  = (id) => ({
-    type: LikesTypes.DELETE_FROM_LIKES_LIST,
+    type: LikesActionTypes.DELETE_FROM_LIKES_LIST,
     payload: id
 });

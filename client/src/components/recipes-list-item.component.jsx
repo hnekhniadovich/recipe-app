@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        activeRecipe: state.recipes.activeRecipe
+        activeRecipe: state.recipe.activeRecipe
     };
 };
 

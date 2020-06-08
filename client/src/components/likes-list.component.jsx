@@ -37,7 +37,7 @@ const LikesList = ({ likesList }) => {
 
 const mapStateToProps = (state) => {
     return {
-        likesList: state.likes.likesList
+        likesList: state.likesList.likesList
     }
 };
 

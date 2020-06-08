@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import { setSearchField } from '../actions/search.actions';
-import { fetchRecipesStart } from '../actions/recipe.actions';
+import { fetchRecipesStart } from '../actions/recipes.actions';
 
 import icons from '../assets/icons.svg';
 
@@ -10,14 +10,17 @@ class SearchBox extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const { searchField, fetchRecipesStart, onSearchChange } = this.props;
+        const { searchField, fetchRecipesStart } = this.props;
         fetchRecipesStart(searchField);
-        //onSearchChange('');
+    }
+
+    handleChange = (event) => {
+        this.props.onSearchChange(event.target.value);
     }
     
     render() {
 
-        const { onSearchChange } = this.props;
+        const { searchField } = this.props;
 
         return (
             <form onSubmit={this.handleSubmit} className="search">
@@ -25,7 +28,8 @@ class SearchBox extends React.Component {
                     type="search"
                     className="search__field"
                     placeholder="Search over 1,000,000 recipes..."
-                    onChange={onSearchChange}
+                    onChange={this.handleChange}
+                    value={searchField}
                 />
                 <button className="btn search__btn">
                     <svg className="search__icon">
@@ -46,7 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+        onSearchChange: (value) => dispatch(setSearchField(value)),
         fetchRecipesStart: (searchField) => dispatch(fetchRecipesStart(searchField))
     }
 };

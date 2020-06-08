@@ -1,53 +1,31 @@
-import { RecipesActionTypes, RecipeActionTypes, PaginationTypes } from '../actions/recipe.types';
+import { RecipeActionTypes } from '../actions/recipe.types';
 import { addIngrPerServing, deleteIngrPerServing } from '../utils/utils'; 
 
 const INITIAL_STATE = {
-    isPending1: false,
-    isPending2: false,
-    recipes: null,
+    isPending: false,
     recipe: null,
     activeRecipe: null,
     shoppingList: [],
-    likesList: [],
-    errorMessage: undefined,
-    pageNumber: 1
+    errorMessage: undefined
 };
 
 const recipeReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
-        case RecipesActionTypes.FETCH_RECIPES_START:
-            return {
-                ...state,
-                isPending1: true
-            }
-        case RecipesActionTypes.FETCH_RECIPES_SUCCESS:
-            return {
-                ...state,
-                isPending1: false,
-                recipes: action.payload,
-                pageNumber: 1
-            }
-        case RecipesActionTypes.FETCH_RECIPES_FAILURE:
-            return {
-                ...state,
-                isPending1: false,
-                errorMessage: action.payload
-            }
         case RecipeActionTypes.FETCH_RECIPE_START:
             return {
                 ...state,
-                isPending2: true
+                isPending: true
             }
         case RecipeActionTypes.FETCH_RECIPE_SUCCESS:
             return {
                 ...state,
-                isPending2: false,
+                isPending: false,
                 recipe: action.payload
             }
         case RecipeActionTypes.FETCH_RECIPE_FAILURE:
             return {
                 ...state,
-                isPending2: false,
+                isPending: false,
                 errorMessage: action.payload
             }
         case RecipeActionTypes.ADD_SERVING:
@@ -67,30 +45,10 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
                         deleteIngrPerServing(state.recipe.ingredients) : 
                         [ ...state.recipe.ingredients]  }
             }
-        case RecipeActionTypes.ADD_TO_SHOPPING_LIST:
-            return {
-                ...state,
-                shoppingList: [ ...state.shoppingList, ...action.payload]
-            }
-        case RecipeActionTypes.DELETE_SHOPPING_LIST_ITEM:
-            return {
-                ...state,
-                shoppingList: state.shoppingList.filter(item => item.id !== action.payload)
-            }
         case RecipeActionTypes.SET_ACTIVE_RECIPE:
             return {
                 ...state,
                 activeRecipe: action.payload
-            }
-        case PaginationTypes.PAGE_NEXT:
-            return {
-                ...state,
-                pageNumber: state.pageNumber + 1
-            }
-        case PaginationTypes.PAGE_PREV:
-            return {
-                ...state,
-                pageNumber: state.pageNumber - 1
             }
         default:
             return state;

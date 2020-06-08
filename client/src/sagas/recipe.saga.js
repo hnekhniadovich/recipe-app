@@ -1,10 +1,8 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import { 
-    fetchRecipesSuccess, 
-    fetchRecipesFailure, 
-    fetchRecipeSuccess, 
-    fetchRecipeFailure
-} from '../actions/recipe.actions';
+
+import { fetchRecipesSuccess, fetchRecipesFailure } from '../actions/recipes.actions';
+
+import { fetchRecipeSuccess, fetchRecipeFailure } from '../actions/recipe.actions';
 
 import { RecipesActionTypes, RecipeActionTypes } from '../actions/recipe.types';
 import { getRecipes, getRecipeInfo, getRecipeIngredients } from '../utils/api';
