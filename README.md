@@ -1,5 +1,5 @@
 # Forkify
-> Small recipe rearch app built with React, Redux, Redux Saga, Redux Persist, Axios. Design credit to Jonas Schmedtmann.
+> Small recipe search app built with React, Redux, Redux Saga, Redux Persist, Axios. Design credit to Jonas Schmedtmann.
 
 ### Install
 Forkify requires Node.js to run its dependencies.
