@@ -1,11 +1,12 @@
 # Forkify
-> Small recipe rearch app built with React. This is part of "Complete JavaScript" Udemy course. The application is built with React, Redux, Redux Saga, Redux Persist, Axios
+> Small recipe rearch app built with React, Redux, Redux Saga, Redux Persist, Axios. Design credit to Jonas Schmedtmann.
 
 ### Install
 Forkify requires Node.js to run its dependencies.
 Install the dependencies and devDependencies and start the server.
 
 ` $ npm install`
+
 ` $ npm run dev `
 
 ## Featuring:
